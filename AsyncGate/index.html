@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function myFetch(url){
+    const xml = new XMLHttpRequest();
+    const data = xml.open('GET', url);
+    xml.onload = function (){
+        return new Promise((resolve, reject) => {
+            if(xml.status >= 200){
+                resolve(JSON.parse(xml.responseText))
+                console.log(JSON.parse(xml.responseText));
+            }
+            reject(new Error(`Fetching failed at: ${xml.status} `))
+        })
+    }
+    xml.send();
+}
+
+
+myFetch('https://jsonplaceholder.typicode.com/users')
+.then(data => console.log(data))
+.catch(error => console.log('Error:', error))
+    </script>
+</body>
+</html>
